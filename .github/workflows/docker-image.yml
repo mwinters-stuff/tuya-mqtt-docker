@@ -12,23 +12,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+       
+      - 
+        name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+      -
+         name: Print version
+         run: echo ${{steps.get_version.outputs.VERSION}}
+
       -
         name: Checkout
         uses: actions/checkout@v2
-      - 
-          name: Create Relase
-          uses: actions/create-release@v1
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-          with:
-            tag_name: ${{ github.ref }}
-            release_name: Release ${{ github.ref }}
-            body: |
-              Changes in this Release
-              - First Change
-              - Second Change
-            draft: false
-            prerelease: false
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -41,4 +36,4 @@ jobs:
         run: echo ${{ steps.buildx.outputs.platforms }}
       - 
         name: Build the Docker image
-        run: docker buildx build --tag ghcr.io/mwinters-stuff/tuya-mqtt-docker:${{ github.ref }} --tag ghcr.io/mwinters-stuff/tuya-mqtt-docker:latest --push --platform=linux/arm64 --platform=linux/arm --platform=linux/amd64 .
+        run: docker buildx build --tag ghcr.io/mwinters-stuff/tuya-mqtt-docker:${{steps.get_version.outputs.VERSION}} --tag ghcr.io/mwinters-stuff/tuya-mqtt-docker:latest --push --platform=linux/arm64 --platform=linux/arm --platform=linux/amd64 .
