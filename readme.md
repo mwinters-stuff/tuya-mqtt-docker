@@ -1,3 +1,4 @@
+![Create release with docker](https://github.com/mwinters-stuff/tuya-mqtt-docker/workflows/Create%20release%20with%20docker/badge.svg)
 # Docker image for tuya-mqtt
 
 See https://github.com/TheAgentK/tuya-mqtt
