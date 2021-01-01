@@ -1,9 +1,11 @@
 name: Create release with docker
 
 on:
-  push:
-    tags: 
-      - 'v*'
+  workflow_dispatch:
+    inputs: 
+      version:
+        description: "Image version to create"
+        required: true
  
 jobs:
 
@@ -13,13 +15,9 @@ jobs:
 
     steps:
        
-      - 
-        name: Get the version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
       -
          name: Print version
-         run: echo ${{steps.get_version.outputs.VERSION}}
+         run: echo ${{github.event.inputs.version}}
 
       -
         name: Checkout
@@ -51,5 +49,5 @@ jobs:
           push: true
           tags: |
             ghcr.io/${{github.repository}}:latest
-            ghcr.io/${{github.repository}}:${{steps.get_version.outputs.VERSION}}
+            ghcr.io/${{github.repository}}:${{github.event.inputs.version}}
 
