@@ -1,4 +1,3 @@
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/mwinters-stuff/tuya-mqtt-docker?sort=semver)
 ![Create release with docker](https://github.com/mwinters-stuff/tuya-mqtt-docker/workflows/Create%20release%20with%20docker/badge.svg)
 # Docker image for tuya-mqtt
 
